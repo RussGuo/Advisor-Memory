@@ -28,6 +28,11 @@ def load_advisor_config() -> dict[str, Any]:
     return payload if isinstance(payload, dict) else {}
 
 
+def save_advisor_config(payload: dict[str, Any]) -> None:
+    CONFIG_PATH.parent.mkdir(parents=True, exist_ok=True)
+    CONFIG_PATH.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
 def load_gbrain_config() -> dict[str, Any]:
     if not GBRAIN_CONFIG_PATH.exists():
         return {}

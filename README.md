@@ -21,6 +21,35 @@ It is designed for cases like:
 - “结合我当前项目，给我一个带参考依据的建议”
 - “跨多个库一起搜，不要让我先选 pack”
 
+## First Run After Install
+
+If you just cloned this skill into `~/.claude/skills/advisor-memory` or `~/.codex/skills/advisor-memory`, the first thing to do is bootstrap it.
+
+Recommended first command:
+
+```bash
+python3 scripts/bootstrap_advisor_memory.py \
+  --brain-root ~/brain \
+  --lenny-root /absolute/path/to/lennys-podcast-newsletter \
+  --install-gbrain
+```
+
+This one command will:
+
+- install or locate `gbrain`
+- run `gbrain init --pglite`
+- run `gbrain doctor --json`
+- create the advisor-memory brain layout
+- register Lenny as the first pack
+- write `~/.advisor-memory/config.json`
+- print the first commands you should run next
+
+If you do not want to start with Lenny yet, you can omit `--lenny-root` and bootstrap an empty brain first:
+
+```bash
+python3 scripts/bootstrap_advisor_memory.py --brain-root ~/brain --install-gbrain
+```
+
 ## Product Model
 
 The core design rule is simple:
@@ -141,6 +170,17 @@ gbrain --version
 
 ### Initialize a Lenny-first brain
 
+Preferred one-command path:
+
+```bash
+python3 scripts/bootstrap_advisor_memory.py \
+  --brain-root /absolute/path/to/brain \
+  --lenny-root /absolute/path/to/lennys-podcast-newsletter \
+  --install-gbrain
+```
+
+Low-level manual path:
+
 ```bash
 python3 scripts/init_lenny_first_memory.py \
   --brain-root /absolute/path/to/brain \
@@ -222,6 +262,7 @@ No separate viewer product is required for the system to be usable by humans.
 
 ## Recommended Entry Points
 
+- First-run bootstrap: `scripts/bootstrap_advisor_memory.py`
 - Setup: `scripts/init_lenny_first_memory.py`
 - Ingest: `scripts/smart_ingest_library_pack.py`
 - Broad consult: `scripts/consult_advisor_memory.py`

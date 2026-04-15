@@ -187,6 +187,7 @@ def main() -> int:
     manifest_path = pack_manifest_path(pack_root)
     manifest = load_json(manifest_path)
     snippet_paths = write_harness_snippets(brain_root)
+    script_dir = Path(__file__).resolve().parent
 
     print(f"Initialized advisor-memory brain at {brain_root}")
     print(f"Registered Lenny pack with {manifest['item_count']} items")
@@ -196,6 +197,23 @@ def main() -> int:
     for path in snippet_paths:
         print(f"Snippet: {path}")
     print(f"Taxonomy: {taxonomy_path}")
+    print("")
+    print("Next steps / 下一步:")
+    print(
+        "1. Broad consult / 顾问咨询: "
+        f'python3 {script_dir / "consult_advisor_memory.py"} --brain-root {brain_root} '
+        '"How should we improve onboarding and PMF?"'
+    )
+    print(
+        "2. Search Lenny / 搜 Lenny: "
+        f'python3 {script_dir / "search_library_pack.py"} --brain-root {brain_root} '
+        '--pack-name lenny search "product-market fit" --limit 5'
+    )
+    print(
+        "3. Ingest new corpus / 导入新资料: "
+        f'python3 {script_dir / "smart_ingest_library_pack.py"} --brain-root {brain_root} '
+        '--source /path/to/new-corpus'
+    )
     return 0
 
 

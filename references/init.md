@@ -74,6 +74,39 @@ If `gbrain` is not on `PATH`, you can point advisor-memory at it with:
 
 ## One-Time Sequence / 一次性初始化流程
 
+## Recommended First-Run Path / 推荐首次初始化路径
+
+If the skill was just installed and the user asks “what is this skill and how do I initialize it?”, do not make them manually piece together `gbrain` setup and pack registration. Start with the one-command bootstrap.  
+如果这个 skill 刚装好，用户问“这是什么、怎么初始化”，不要让用户手工拼 `gbrain` 和 pack 注册流程。先给一条一键 bootstrap。
+
+```bash
+python3 scripts/bootstrap_advisor_memory.py \
+  --brain-root ~/brain \
+  --lenny-root /absolute/path/to/lennys-podcast-newsletter \
+  --install-gbrain
+```
+
+This command will / 这条命令会：
+
+- install or locate `gbrain`
+- run `gbrain init --pglite`
+- run `gbrain doctor --json`
+- create the advisor-memory brain layout
+- register Lenny if `--lenny-root` is provided
+- write `~/.advisor-memory/config.json`
+- print the next commands for consult, search, and ingest
+
+If the user does not have Lenny locally yet, bootstrap an empty brain first:
+
+```bash
+python3 scripts/bootstrap_advisor_memory.py \
+  --brain-root ~/brain \
+  --install-gbrain
+```
+
+Then ingest the first corpus later with `smart_ingest_library_pack.py`.  
+之后再用 `smart_ingest_library_pack.py` 导入第一个资料库。
+
 ### 1. Initialize GBrain / 初始化 GBrain
 
 ```bash
